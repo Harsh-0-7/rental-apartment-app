@@ -18,3 +18,11 @@ sudo podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}
 
 8. Run 'CREATE EXTENSION IF NOT EXISTS "postgis"'
 
+
+## Authentication Flow
+1. User signin/up
+2. Credentials sent to cognito auth
+3. User credentials is sent to client including jwt token, session info, and cognito user id
+4. Send cognito user id  and user info to our own database (Amazon API Gateway Cognito Autherizer)
+   - if user signin up, it will save user into database
+   - if user sigining in, it will use cognito user id to grab data from database.
