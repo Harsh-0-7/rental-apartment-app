@@ -26,3 +26,9 @@ sudo podman inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}
 4. Send cognito user id  and user info to our own database (Amazon API Gateway Cognito Autherizer)
    - if user signin up, it will save user into database
    - if user sigining in, it will use cognito user id to grab data from database.
+
+
+## Using pod
+1. sudo podman pod create --name rentifull-pod -p 5433:5432 -p 5050:80
+2. sudo podman run --pod rentifull-pod -e 'POSTGRES_USER=postgres' -e 'POSTGRES_PASSWORD=<some_password>' --name db -d docker.io/postgis/postgis:latest
+3. sudo podman run --pod rentifull-pod -e 'PGADMIN_DEFAULT_EMAIL=admin' -e 'PGADMIN_DEFAULT_PASSWORD=<some_password>' --name pgadmin -d docker.io/dpage/pgadmin4
